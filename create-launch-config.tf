@@ -9,7 +9,7 @@ data "template_file" "user_data" {
   template = "${file("${path.module}/user-data.tpl")}"
 
   vars {
-    rdsh_fqdn = "${aws_route53_record.lb_pub_dns.fqdn}"
+    git_repo = "${var.git_repo}"
   }
 }
 

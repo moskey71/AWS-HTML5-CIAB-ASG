@@ -27,6 +27,20 @@ cd ciab
 #echo "bind_host = $${IP}" >> \/etc\/guacamole\/guacd.conf
 #echo "bind_port = 443" >> \/etc\/guacamole\/guacd.conf
 
+# Set guacadmin password
+mysql --host=localhost << END
+
+USE guacdb;
+SET @salt = UNHEX(SHA2(UUID(), 256));
+UPDATE guacamole_user
+SET
+    password_salt = @salt,
+    password_hash = UNHEX(SHA2(CONCAT('${GUAC_ADMIN_PASSWORD}', HEX(@salt)), 256))
+WHERE
+    username = 'guacadmin';
+
+END
+
 # set permissions on setup-nginx.sh
 chmod 744 setup-nginx.sh
 

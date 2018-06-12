@@ -9,7 +9,8 @@ data "template_file" "user_data" {
   template = "${file("${path.module}/user-data.tpl")}"
 
   vars {
-    git_repo = "${var.git_repo}"
+    git_repo            = "${var.git_repo}"
+    GUAC_ADMIN_PASSWORD = "${var.GUAC_ADMIN_PASSWORD}"
   }
 }
 
@@ -105,7 +106,7 @@ resource "aws_lb_listener" "alb_listener" {
   load_balancer_arn = "${aws_lb.alb.arn}"
   port              = "443"
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2015-05"
+  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
   certificate_arn   = "${aws_acm_certificate_validation.cert.certificate_arn}"
 
   default_action {

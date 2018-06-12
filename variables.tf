@@ -37,3 +37,7 @@ variable "security_groups" {
 variable "git_repo" {
   default = "https://github.com/moskey71/CIAB-Guacamole-Remote-Desktop.git"
 }
+
+variable "GUAC_ADMIN_PASSWORD" {
+  default = "guacadmin"
+}

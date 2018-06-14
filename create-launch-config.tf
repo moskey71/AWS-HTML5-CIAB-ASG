@@ -11,6 +11,7 @@ data "template_file" "user_data" {
   vars {
     git_repo            = "${var.git_repo}"
     GUAC_ADMIN_PASSWORD = "${var.GUAC_ADMIN_PASSWORD}"
+    domain_name         = "${var.domain_name}"
   }
 }
 
@@ -42,18 +43,6 @@ resource "aws_route53_record" "lb_pub_dns" {
     evaluate_target_health = true
   }
 }
-
-#resource "aws_route53_record" "private_dns" {
-#  zone_id = "${var.private_dnszone_id}"
-#  name    = "${var.dns_name}"
-#  type    = "A"
-#
-#  alias {
-#    name                   = "${aws_lb.alb.dns_name}"
-#    zone_id                = "${aws_lb.alb.zone_id}"
-#    evaluate_target_health = true
-#  }
-#}
 
 resource "aws_acm_certificate" "cert" {
   domain_name       = "${aws_route53_record.lb_pub_dns.fqdn}"

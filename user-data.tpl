@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#change hostname
+NEW_UUID=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+echo "ubuntu-$${NEW_UUID}.${domain_name}" > \/etc\/hostname
+hostname "ubuntu-$${NEW_UUID}.${domain_name}"
+
+
 # install git
 apt-get install git -y
 
@@ -52,7 +58,7 @@ echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select tr
 sudo apt-get install ttf-mscorefonts-installer -y
 
 # setup cloud in a box
-#./setup-ciab.sh
+./setup-ciab.sh
 
 #restart
-#shutdown -r now
+shutdown -r now

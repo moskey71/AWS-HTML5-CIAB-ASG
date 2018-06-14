@@ -41,3 +41,7 @@ variable "git_repo" {
 variable "GUAC_ADMIN_PASSWORD" {
   default = "guacadmin"
 }
+
+variable "domain_name" {
+  default = "example.com"
+}
